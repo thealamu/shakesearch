@@ -6,6 +6,7 @@ import (
 	"net"
 	"net/http"
 	"os"
+	"time"
 
 	"github.com/sethvargo/go-signalcontext"
 )
@@ -22,8 +23,10 @@ func main() {
 
 	srv := &Server{
 		&http.Server{
-			Handler: getRoutes(searcher),
-			Addr:    getRunAddr(),
+			Handler:      getRoutes(searcher),
+			Addr:         getRunAddr(),
+			ReadTimeout:  5 * time.Second,
+			WriteTimeout: 5 * time.Second,
 		},
 	}
 
